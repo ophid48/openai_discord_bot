@@ -1,5 +1,3 @@
-import random
-
 from api_secrets import API_KEY, discord_bot_api
 import openai
 import discord
@@ -13,14 +11,16 @@ config = {
 }
 intents = discord.Intents.all()
 
-bot = commands.Bot(command_prefix='$', intents=intents)
+bot = commands.Bot(command_prefix=config['prefix'], intents=intents)
 
 
 @bot.command()
 async def q(ctx, *args):
     q = ' '.join([str(elem) for elem in args])
     print(q)
-    await ctx.reply(generate_request(q))
+    res = generate_request(q)
+    print(res)
+    await ctx.reply(res)
 
 
 def generate_request(q):
